@@ -1,9 +1,15 @@
 import React from "react"
 import Link from "next/link"
+import useSWR from "swr"
+import PageTitle from "../components/PageTitle"
+
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const index = () => {
+    const { data, error } = useSWR('/api/get-promo', fetcher)
     return (
         <div>
+            <PageTitle title="Seja bem-vindo" />
             <p className="mt-12 text-center">
                 O restaurante X sempre busca por atender melhor seus clientes. <br/>
                 Por isso, estamos sempre aberto a ouvir sua opinião.
@@ -13,9 +19,12 @@ const index = () => {
                     <a className="bg-blue-400 px-6 py-4 font-bold rounded-lg shadow-lg hover:shadow">Dar opinião ou sugestão</a>
                 </Link>
             </div>
-            <p className="my-12 text-center">
-                Mensagem do desconto
-            </p>
+            { !data && <p>Carregando...</p> }
+            { !error && data && data.showCoupon &&
+                <p className="my-12 text-center">
+                    { data.message }
+                </p>
+            }
         </div>
     )
 }
