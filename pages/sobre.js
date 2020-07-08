@@ -4,13 +4,11 @@ import PageTitle from "../components/PageTitle"
 
 const Sobre = () => {
     return (
-        <div>
+        <div className="flex flex-col w-48 mx-48 h-64">
             <PageTitle title="Sobre" />
-            <h1>Sobre</h1>
+            <h1 className="text-4xl py-8">Sobre nós</h1>
             <div>
-                <Link href="/">
-                    <a>Home</a>
-                </Link>
+
             </div>
         </div>
     ) 
